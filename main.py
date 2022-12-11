@@ -1,7 +1,7 @@
 import pygame
 # import numpy as np
 import random
-from pygame.constants import QUIT, K_DOWN, K_UP, K_RIGHT, K_LEFT
+from pygame.constants import QUIT, K_DOWN, K_UP, K_RIGHT, K_LEFT, K_ESCAPE
 
 pygame.init()
 
@@ -58,7 +58,7 @@ is_working = True
 
 while is_working:
     FPS.tick(60)
-
+    presset_keys =pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type == QUIT:
             is_working= False
@@ -66,6 +66,8 @@ while is_working:
             enemies.append(create_enemy())
         if event.type == CREATE_BONUS:
             bonuses.append(create_bonus())
+        if presset_keys[K_ESCAPE]:
+            is_working=False
         
 
     main_surface.fill((0, 0, 0))
@@ -91,7 +93,7 @@ while is_working:
             bonuses.pop(bonuses.index(bonus))
 
 
-    presset_keys =pygame.key.get_pressed()
+    
     if presset_keys[K_DOWN] and not ball_rect.bottom >= heigth:
         ball_rect=ball_rect.move(0, ball_speed)
     if presset_keys[K_UP] and not ball_rect.top <= 0:
